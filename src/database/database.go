@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/toticavalcanti/fiber-api/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -27,6 +28,8 @@ func ConnectDb() {
 	log.Println("Conectado ao banco de dados!")
 	db.Logger = logger.Default.LogMode(logger.Info)
 	log.Println("Executando as migrações")
+	// Add migrations
+	db.AutoMigrate(&models.User{}, &models.Product{}, &models.Order{})
 
 	Database = DbInstance{Db: db}
 }
